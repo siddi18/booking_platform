@@ -1,0 +1,55 @@
+## Node / JavaScript
+node_modules/
+**/node_modules/
+
+# Build outputs
+dist/
+build/
+frontend/dist/
+backend/dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+backend/.env
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite / cache
+.vite/
+/.turbo/
+
+# Coverage
+coverage/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Temporary
+tmp/
+temp/
+
+# Misc
+*.tgz
+
