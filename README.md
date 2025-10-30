@@ -1,163 +1,66 @@
-A Hideway Delite — Experience Booking Platform
+# Booking Platform
 
-A fullstack web application for browsing and booking curated travel and adventure experiences.
+[Frontend (Vercel) — Live]
+https://booking-platform-eight.vercel.app
 
-## Quick summary
+[Backend API (Render) — Live]
+https://booking-platform-ks70.onrender.com
 
-- Frontend: React + TypeScript, Vite, TailwindCSS
-- Backend: Node.js + Express, MongoDB (Mongoose)
-- Purpose: Browse experiences, choose dates/times, and create bookings with a checkout flow.
+> API base URL for the frontend: https://booking-platform-ks70.onrender.com/api
 
-> Note: project was previously named "Highway Delight" in earlier materials — this repository now uses the brand name "Hideway Delite".
+## Overview
 
-## Repository layout
+A full‑stack booking platform for curated experiences. Users can browse experiences, view details, select dates/times, apply promo codes, and complete bookings. The project is a monorepo with a Node/Express/MongoDB backend and a React + Vite + TypeScript frontend.
+
+## Tech Stack
+
+- Backend: Node.js, Express, Mongoose (MongoDB Atlas)
+- Frontend: React 19, Vite, TypeScript, Tailwind CSS
+- Deployment: Render (backend) and Vercel (frontend)
+
+## Repository Structure
+
+- backend/ — Express API (routes, controllers, models)
+- frontend/ — React app (pages, components, API client)
+
+## Quick Start (Local)
+
+### Prerequisites
+- Node.js 18+
+- A MongoDB Atlas connection string
+
+### 1) Backend (API)
+
+Create `backend/.env`:
 
 ```
-HidewayDelite/
-├── frontend/          # React + TypeScript frontend (Vite)
-│   ├── src/
-│   └── public/
-└── backend/           # Node.js + Express backend
-   ├── controllers/
-   ├── models/
-   ├── routes/
-   └── test&seed/     # Database seeding scripts
-```
-
-## Requirements
-
-- Node.js 18+ (LTS recommended)
-- npm (comes with Node.js)
-- A MongoDB instance (MongoDB Atlas recommended)
-
-## Environment variables
-
-Create a `.env` file in the `backend/` directory containing at least:
-
-```powershell
-# backend\.env
-MONGODB_URI="your_mongodb_connection_string"
+MONGODB_URI=<your_mongodb_atlas_uri>
 PORT=5000
+# Leave this off in production; route is disabled unless set to true
+ALLOW_SEED=false
+# Optional: comma-separated allowlist, overrides defaults
+# CORS_ORIGINS=https://your-frontend.example.com,http://localhost:5173
 ```
 
-Replace `your_mongodb_connection_string` with your Atlas connection string (include username, password, and the default database name).
-
-## Install and run (Windows PowerShell)
-
-1. Backend
-
-```powershell
-cd 'c:\Users\Siddhi\Downloads\HighwayDeliteAssignment-main\HighwayDeliteAssignment-main\backend'
-npm install
-# Seed the DB (uses MONGODB_URI from backend\.env)
-npm run seed
-# Start server
-npm run dev
-```
-
-The backend listens on the port specified in `.env` (default 5000).
-
-2. Frontend
-
-```powershell
-cd 'c:\Users\Siddhi\Downloads\HighwayDeliteAssignment-main\HighwayDeliteAssignment-main\frontend'
-npm install
-npm run dev
-```
-
-The frontend dev server (Vite) typically runs on http://localhost:5173.
-
-## Seed data
-
-- A seed script is provided at `backend/test&seed/seed-runner.js` and an HTTP seed endpoint `POST /api/seed` (server must be running).
-- Use `npm run seed` from the `backend/` folder to populate the `experiences` collection with sample experiences.
-
-## Notable implementation details
-
-- TypeScript: the frontend uses TypeScript 5.9.x. If your editor (VS Code) highlights config errors, choose the workspace TypeScript version (Command Palette → "TypeScript: Select TypeScript Version" → "Use Workspace Version").
-- The `frontend/tsconfig.app.json` was adjusted for broad tool compatibility; `allowImportingTsExtensions` is enabled since some imports use explicit `.tsx` extensions.
-- The backend uses ES modules ("type": "module" in `backend/package.json`).
-
-## API (backend)
-
-- GET /api/experiences?page=&limit=&q=  — list experiences (pagination + search)
-- GET /api/experiences/:id                  — get single experience
-- POST /api/bookings                         — create a booking
-- GET /api/bookings/:id                      — retrieve a booking
-- POST /api/seed                             — seed the experiences collection (or run the CLI seed)
-
-## UI changes made in this repository
-
-- Branding updated to "Hideway Delite". The header logo shows an "HD" style icon and the word "delite" (the letter "d" uses a yellow accent in the navbar).
-- The details page no longer shows the numeric "X left" availability next to time slots (only a "Sold out" badge appears when a timeslot is fully booked).
-
-## Troubleshooting
-
-- "Cannot find type definition file for 'vite/client'": ensure you installed the frontend dev dependencies and that your editor uses the workspace TypeScript (see note above). Run `npx tsc -p tsconfig.app.json --noEmit` to reproduce/diagnose local TypeScript issues.
-- If `npm run seed` fails, confirm `MONGODB_URI` is valid and reachable from your environment. For Atlas, whitelist your IP or allow access from anywhere (temporarily) while seeding.
-
-## Contributing
-
-If you want to contribute changes, please:
-
-1. Open an issue describing the feature or bug.
-2. Create a branch for your change.
-3. Open a pull request with a concise description and include reproduction steps or screenshots if UI changes.
-
-## License
-
-MIT
-
----
-
-If you'd like, I can also:
-- Update the navbar text to "hideway" and make the "d" yellow in the code (I partially updated components earlier) — I can finish that across components.
-
-Hideway Delite — Department Submission
-
-Overview
---------
-
-Hideway Delite is a compact full-stack application built for demonstrating an end-to-end booking flow: a user browses curated experiences, inspects details, selects date/time slots, and completes bookings via a checkout page. This README is rewritten to be unique for departmental evaluation and contains explicit validation steps, API examples, and administrative notes.
-
-Core technologies
------------------
-
-- Frontend: React 19 (TypeScript), Vite, Tailwind CSS
-- Backend: Node.js + Express, Mongoose for MongoDB
-- Database: MongoDB (Atlas or local) storing Experience and Booking documents
-
-Repository layout (concise)
----------------------------
-
-- `frontend/` — React application (Vite). Key folders: `src/components`, `src/pages`, `src/lib`.
-- `backend/` — Express app, routes, controllers, Mongoose models. Seeder at `backend/test&seed/seed-runner.js`.
-
-Preparing the environment
--------------------------
-
-1. Create the backend environment file `backend/.env` with these entries:
-
-```text
-MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.example.mongodb.net/hideway?retryWrites=true&w=majority"
-PORT=5000
-```
-
-2. (Optional) If using MongoDB Atlas, add your development IP to the project's network access allow list.
-
-Commands to run locally (recommended order)
------------------------------------------
-
-Backend (install, seed, run):
+Install and run:
 
 ```powershell
 cd backend
 npm ci
-npm run seed       # inserts sample experiences
-npm run dev        # starts Express server (dev)
+npm run dev
 ```
 
-Frontend (install, serve):
+API will run at http://localhost:5000 with base path `/api`.
+
+### 2) Frontend (Web)
+
+Create `frontend/.env`:
+
+```
+VITE_API_URL=http://localhost:5000/api
+```
+
+Install and run:
 
 ```powershell
 cd frontend
@@ -165,69 +68,81 @@ npm ci
 npm run dev
 ```
 
-Quick verification (2-minute check)
-----------------------------------
+Open the app (default) at http://localhost:5173.
 
-1. Backend health: http://localhost:5000/api/health should return an OK JSON.
-2. Seed verification: after `npm run seed`, call GET /api/experiences and ensure items are returned.
-3. Frontend: open http://localhost:5173 — you should see cards for experiences and be able to open details pages.
+## Environment Variables
 
-API examples
-------------
+### Backend
+- MONGODB_URI — MongoDB Atlas connection string
+- PORT — HTTP port (default 5000)
+- ALLOW_SEED — Enable `/api/seed` only when explicitly `true` (default off)
+- CORS_ORIGINS — Optional comma‑separated allowlist that overrides defaults
+- ALLOW_ALL_ORIGINS — Optional `true` for temporary debugging only
 
-- List experiences (paginated):
+### Frontend
+- VITE_API_URL — The API base URL, e.g. `https://booking-platform-ks70.onrender.com/api`
 
-   curl:
+## Deployment
 
-   ```bash
-   curl "http://localhost:5000/api/experiences?page=1&limit=9"
-   ```
+### Backend on Render
+- Root Directory: `backend`
+- Build Command: `npm ci`
+- Start Command: `npm start`
+- Environment:
+  - `MONGODB_URI` (required)
+  - `PORT` (optional)
+  - `ALLOW_SEED=false` (recommended)
+  - `CORS_ORIGINS` (optional; e.g. `https://booking-platform-eight.vercel.app`)
 
-- Get experience details:
+CORS in the server allows localhost and `*.vercel.app` by default for previews. You can lock this down with `CORS_ORIGINS` for production‑only domains.
 
-   ```bash
-   curl "http://localhost:5000/api/experiences/<experienceId>"
-   ```
+### Frontend on Vercel
+- Root Directory: `frontend`
+- Build Command: `npm run build`
+- Output Directory: `dist`
+- Environment:
+  - `VITE_API_URL=https://booking-platform-ks70.onrender.com/api`
 
-- Create booking (example payload):
+Redeploy after changing environment variables.
 
-   ```bash
-   curl -X POST "http://localhost:5000/api/bookings" \
-      -H "Content-Type: application/json" \
-      -d '{"experienceId":"<id>","experienceName":"Sample","fullName":"Test User","email":"user@example.com","date":"Oct 30","time":"05:30 am","quantity":2,"subtotal":1000,"taxes":50,"total":1050}'
-   ```
+## API Reference
 
-Data model summary
-------------------
+Base URL: `…/api`
 
-- Experience: { title, location, description, price, image, category, minAge, includes, slots }
-- Booking: { experienceId, experienceName, fullName, email, date, time, quantity, subtotal, taxes, total, bookingRef }
+- GET `/experiences` — List experiences with pagination and search
+  - Query: `page`, `limit`, `search`
+- GET `/experiences/:id` — Get one experience with slots
+- POST `/bookings` — Create a booking
+- GET `/bookings/:email` — Get bookings for a user email
+- POST `/promo/validate` — Validate a promo code against a subtotal
+- GET `/health` — Service health check
 
-Notes for reviewers
--------------------
+## Seeding Data
 
-- The frontend recently removed numeric "X left" availability from the details UI; only a "Sold out" indicator shows when a timeslot has no availability.
-- The navbar branding uses an "HD" icon and highlights the letter "d" in yellow for visual identity.
+There is a reusable seed function and a CLI runner.
 
-Troubleshooting
----------------
+- CLI: from `backend/` run
 
-- If TypeScript reports `Cannot find type definition file for 'vite/client'`, ensure frontend dependencies are installed (`npm ci` in `frontend/`). Also set VS Code to use the workspace TypeScript version.
-- If seeding fails, check that `MONGODB_URI` is correct and reachable from your machine. For Atlas, ensure network access rules permit your IP.
+```powershell
+npm run seed
+```
 
-Optional next steps (I can implement)
------------------------------------
+- HTTP seed route: disabled by default; only mounted if `ALLOW_SEED=true`. Do not enable this in production.
 
-1. Replace the placeholder header/logo with a provided institutional SVG and enforce the new brand name across the UI.
-2. Add a `CONTRIBUTING.md` with coding standards and a `DEV_SETUP.md` with Docker instructions.
-3. Run a full frontend production build and provide sample deployment steps.
+## CORS Notes
 
-Contact
--------
+- The server sends CORS headers for allowed origins and handles preflight (OPTIONS) globally.
+- Defaults allow localhost and `https://*.vercel.app` preview URLs. For strict production, set `CORS_ORIGINS` to an explicit list and redeploy.
 
-For adjustments requested by the department (institutional header, contact email, or additional screenshots), tell me what to include and I will update this README accordingly.
+## Troubleshooting
 
-License
--------
+- CORS error (No 'Access-Control-Allow-Origin'):
+  - Ensure the backend is redeployed with correct CORS settings
+  - Set `CORS_ORIGINS` to include your exact frontend domain(s)
+  - Verify `VITE_API_URL` points to `…/api`
+- Network Error from Axios:
+  - Usually a blocked preflight or wrong URL; inspect the browser Network tab
 
-MIT
+## License
+
+This project is for educational/demo purposes.
